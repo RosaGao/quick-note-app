@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Container, List } from "@material-ui/core";
+import Note from "./components/Note";
 
 
 
@@ -26,11 +28,29 @@ class App extends Component {
     };
   }
 
+  deleteNote = (note) => {
+    // when next state depends on current state,
+    // pass a function--it auto receives the current state
+    // do not use this.state
+    this.setState((curState)=>{
+      return {
+        notes: curState.notes.filter((item) => item.id !== note.id)
+      }
+    })
+  }
+
+  
   render() {
+    const { notes } = this.state;
+
     return (
-      <pre>
-        {JSON.stringify(this.state.notes, null, 2)}
-      </pre>
+      <Container>
+        <List>
+          {notes.map((note, index)=>{
+            return <Note note={note} key={index} deleteNote={this.deleteNote} />;
+          })}
+        </List>
+      </Container>
     );
   }
 }
