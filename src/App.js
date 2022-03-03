@@ -41,6 +41,13 @@ class App extends Component {
     })
   }
 
+  changePage = () => {
+    this.setState((curState)=>{
+      return ({
+        showHomepage: !this.state.showHomepage,
+      });
+    });
+  }
 
 
   render() {
