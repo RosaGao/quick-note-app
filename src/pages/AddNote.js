@@ -1,13 +1,9 @@
 import { FormControl, TextField, Button } from "@material-ui/core";
-
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 function AddNote (props) {
-    const { changePage } = props;
 
-    const handleCancel = (event) => {
-        event.preventDefault();
-        changePage();
-    }
 
     return (
         <form>
@@ -20,11 +16,11 @@ function AddNote (props) {
                 multiline rows={5} margin="normal" />
             </FormControl>
             <div>
-                <Button type="button" color="secondary" 
-                    onClick={handleCancel}
-                >
-                    Cancel
-                </Button>
+                <Link to="/">
+                    <Button type="button" color="secondary" >
+                        Cancel
+                    </Button>
+                </Link>
                 <Button type="reset" color="secondary" >
                     Reset
                 </Button>
@@ -36,4 +32,4 @@ function AddNote (props) {
     );
 }
 
-export default AddNote;
+export default withRouter(AddNote);

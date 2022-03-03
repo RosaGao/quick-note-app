@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import { Container } from "@material-ui/core";
 import DiaplayNotes from "./pages/DisplayNotes";
 import AddNote from "./pages/AddNote";
-import { Route, Switch } from "react-router";
+import { Route, Routes } from "react-router";
 
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showHomepage: true,
 
       notes: [
         {
@@ -41,27 +40,25 @@ class App extends Component {
     })
   }
 
-  changePage = () => {
-    this.setState((curState)=>{
-      return ({
-        showHomepage: !this.state.showHomepage,
-      });
-    });
-  }
 
 
   render() {
-    const { showHomepage, notes } = this.state;
+    const { notes } = this.state;
 
     return (
       <Container>
-        { showHomepage ? (
-          <DiaplayNotes 
-              notes={notes} 
-              deleteNote={this.deleteNote}
-              changePage={this.changePage}/>
-          ) : ( <AddNote changePage={this.changePage}/> )
-        }
+        <Routes>
+          <Route exact path="/"
+            element={
+              <DiaplayNotes 
+                notes={notes} 
+                deleteNote={this.deleteNote}
+                />}
+          />
+          <Route exact path="/add"
+            element={<AddNote changePage={this.changePage}/>}
+          /> 
+        </Routes>
       </Container>
     );
   }
