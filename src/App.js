@@ -67,23 +67,17 @@ class App extends Component {
     return (
       <Container>
         <Switch>
-          <Route
-            exact
-            path="/"
-            element={
-              <DiaplayNotes notes={notes} deleteNote={this.deleteNote} />
-            }
-          />
+          <Route exact path="/">
+            <DiaplayNotes notes={notes} deleteNote={this.deleteNote} />
+          </Route>
 
-          <Route
-            path="/edit"
-            element={<UpsertNote upsertNode={this.editNote} />}
-          />
+          <Route path="/edit">
+            <UpsertNote upsertNote={this.editNote} />
+          </Route>
 
-          <Route
-            path="/add"
-            element={<UpsertNote upsertNote={this.addNote} />}
-          />
+          <Route path="/add">
+            <UpsertNote upsertNote={this.addNote} />
+          </Route>
         </Switch>
       </Container>
     );

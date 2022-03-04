@@ -26,7 +26,7 @@ class Note extends Component {
   };
 
   render() {
-    const { note, upsertNote } = this.props;
+    const { note, deleteNote } = this.props;
     const { open } = this.state;
 
     return (
@@ -53,7 +53,7 @@ class Note extends Component {
           </ListItemIcon>
 
           <ListItemIcon>
-            <Button onClick={() => upsertNote(note)}>
+            <Button onClick={() => deleteNote(note)}>
               <Delete />
             </Button>
           </ListItemIcon>
