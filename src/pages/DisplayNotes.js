@@ -22,6 +22,7 @@ function DiaplayNotes(props) {
           return <Note note={note} key={index} deleteNote={deleteNote} />;
         })}
       </List>
+
       <Link to="/add">
         <Fab aria-label={"Add"} className={classes.fab}>
           <Add />

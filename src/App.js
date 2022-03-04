@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Container } from "@material-ui/core";
 import DiaplayNotes from "./pages/DisplayNotes";
-import AddNote from "./pages/AddNote";
-import { Route, Routes } from "react-router";
+import UpsertNote from "./pages/UpsertNote";
+import { Route, Switch } from "react-router";
+import { v4 as uuidv4 } from "uuid";
 
 class App extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class App extends Component {
     };
   }
 
+  // homepage
   deleteNote = note => {
     this.setState(curState => {
       return {
@@ -41,10 +43,20 @@ class App extends Component {
     });
   };
 
+  //upsertNote
   addNote = note => {
     this.setState(curState => {
       return {
-        notes: [...this.state.notes, note]
+        notes: [...curState.notes, Object.assign(note, { id: uuidv4() })]
+      };
+    });
+  };
+
+  //upsertNote
+  editNote = note => {
+    this.setState(curState => {
+      return {
+        notes: this.state.notes.map(item => (item.id === note.id ? note : item))
       };
     });
   };
@@ -54,7 +66,7 @@ class App extends Component {
 
     return (
       <Container>
-        <Routes>
+        <Switch>
           <Route
             exact
             path="/"
@@ -62,14 +74,17 @@ class App extends Component {
               <DiaplayNotes notes={notes} deleteNote={this.deleteNote} />
             }
           />
+
           <Route
-            exact
-            path="/add"
-            element={
-              <AddNote changePage={this.changePage} addNote={this.addNote} />
-            }
+            path="/edit"
+            element={<UpsertNote upsertNode={this.editNote} />}
           />
-        </Routes>
+
+          <Route
+            path="/add"
+            element={<UpsertNote upsertNote={this.addNote} />}
+          />
+        </Switch>
       </Container>
     );
   }

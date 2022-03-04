@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { FormControl, TextField, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import { withRouter } from "react-router";
 
-class AddNote extends Component {
+class UpsertNote extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
       text: ""
     };
-    this.history = createBrowserHistory();
   }
 
   updateTitle = event => {
@@ -27,8 +26,8 @@ class AddNote extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.addNote(this.state);
-    this.history.back();
+    this.props.upsertNote(this.state);
+    this.props.history.push("/");
   };
 
   handleReset = event => {
@@ -40,6 +39,7 @@ class AddNote extends Component {
   };
 
   render() {
+    console.log(this.history.location);
     return (
       <form>
         <FormControl fullWidth>
@@ -51,6 +51,7 @@ class AddNote extends Component {
             margin="normal"
           />
         </FormControl>
+
         <FormControl fullWidth>
           <TextField
             onChange={this.updateText}
@@ -62,15 +63,18 @@ class AddNote extends Component {
             margin="normal"
           />
         </FormControl>
+
         <div>
           <Link to="/">
             <Button type="button" color="secondary">
               Cancel
             </Button>
           </Link>
+
           <Button onClick={this.handleReset} type="reset" color="secondary">
             Reset
           </Button>
+
           <Button onClick={this.handleSubmit} type="button" color="primary">
             Submit
           </Button>
@@ -80,4 +84,4 @@ class AddNote extends Component {
   }
 }
 
-export default AddNote;
+export default withRouter(UpsertNote);
