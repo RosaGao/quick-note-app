@@ -2,6 +2,8 @@
 
 A simple note-taking application that uses browser local storage for persistence.
 
+https://quicknote-app-by-rosagao.netlify.app/
+
 
 ## Run Locally
 
