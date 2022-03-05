@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Note from "../components/Note";
+import Search from "../components/Search";
 import { List, Fab, withStyles } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -39,6 +40,7 @@ class DiaplayNotes extends Component {
     return (
       <>
         <Search query={this.state.query} updateQuery={this.updateQuery} />
+
         <List>
           {notes.filter(this.includes).map((note, index) => {
             return <Note note={note} key={index} deleteNote={deleteNote} />;
