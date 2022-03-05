@@ -56,7 +56,7 @@ class App extends Component {
   editNote = note => {
     this.setState(curState => {
       return {
-        notes: this.state.notes.map(item => (item.id === note.id ? note : item))
+        notes: curState.notes.map(item => (item.id === note.id ? note : item))
       };
     });
   };

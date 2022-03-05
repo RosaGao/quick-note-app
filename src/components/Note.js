@@ -5,10 +5,14 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  Button
+  Button,
+  Box,
+  Paper
 } from "@material-ui/core";
 import { Delete, Edit, ExpandLess, ExpandMore } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 class Note extends Component {
   constructor(props) {
@@ -27,13 +31,12 @@ class Note extends Component {
 
   render() {
     const { note, deleteNote } = this.props;
-    const { open } = this.state;
 
     return (
       <>
         <ListItem>
           <ListItemIcon onClick={this.handleClick}>
-            {open ? <ExpandLess /> : <ExpandMore />}
+            {this.state.open ? <ExpandLess /> : <ExpandMore />}
           </ListItemIcon>
 
           <ListItemText primary={note.title}></ListItemText>
@@ -59,9 +62,27 @@ class Note extends Component {
           </ListItemIcon>
         </ListItem>
 
-        <Collapse in={open} timeout="auto" orientation="vertical" unmountOnExit>
+        <Collapse
+          in={this.state.open}
+          timeout="auto"
+          orientation="vertical"
+          unmountOnExit
+        >
           <List component="div" disablePadding>
-            <ListItemText secondary={note.text} />
+            <ListItemText
+              secondary={
+                <Box mx={4}>
+                  <Paper elevation={4}>
+                    <Box p={4}>
+                      <ReactMarkdown
+                        children={note.text}
+                        remarkPlugins={[remarkGfm]}
+                      />
+                    </Box>
+                  </Paper>
+                </Box>
+              }
+            />
           </List>
         </Collapse>
       </>
